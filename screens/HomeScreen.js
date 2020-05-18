@@ -61,7 +61,6 @@ const HomeScreen = (props) => {
       <TotalHeader />
       <SectionNavigation />
       <View style={{flex: 1, padding: 10}} >
-      <Text>{__DEV__.toString()}</Text>
           {
             sections.map((section, i) => {
               section.items = section.items
