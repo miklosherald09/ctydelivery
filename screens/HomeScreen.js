@@ -56,11 +56,12 @@ const HomeScreen = (props) => {
   }, [])
   
   return (
-    <View style={{flex: 1, backgroundColor: 'blue'}}>
+    <View style={{flex: 1, backgroundColor: 'yellow'}}>
       <Notification />
       <TotalHeader />
       <SectionNavigation />
       <View style={{flex: 1, padding: 10}} >
+      <Text>{__DEV__.toString()}</Text>
           {
             sections.map((section, i) => {
               section.items = section.items
