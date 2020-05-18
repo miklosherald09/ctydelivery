@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "119710553873",
+    "firebase_url": "https://ctydelivery-d7a7a.firebaseio.com",
+    "project_id": "ctydelivery-d7a7a",
+    "storage_bucket": "ctydelivery-d7a7a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:119710553873:android:aabe2a4830743f9607deb0",
+        "android_client_info": {
+          "package_name": "com.ctydelivery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "119710553873-gpilklooua2i3t6qk1bb2srcru0qkprs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ctydelivery",
+            "certificate_hash": "58efd136b58c0bf38e67d66e6c39c574040f75e1"
+          }
+        },
+        {
+          "client_id": "119710553873-tob8i2t4a2ih2788epkrm1vnn6423f2o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ctydelivery",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "119710553873-l4b4o927fi925g8cajs2ic7fo6eb6p6s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEm45P2TX51PYxkNVsQlTPyXqnPMAXxAs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "119710553873-l4b4o927fi925g8cajs2ic7fo6eb6p6s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "762035873529",
+    "firebase_url": "https://ctydeliveryasia.firebaseio.com",
+    "project_id": "ctydeliveryasia",
+    "storage_bucket": "ctydeliveryasia.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:762035873529:android:f9de8de2d5f6cf5a3d6428",
+        "android_client_info": {
+          "package_name": "com.ctydelivery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "762035873529-e48nthg8qth3qn2l74g6jtpefsi86of5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBESU5GAEhC8YmNslI3KD_PMHFVnxbFbFw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "762035873529-e48nthg8qth3qn2l74g6jtpefsi86of5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

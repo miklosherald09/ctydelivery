@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ctydelivery</string>
+    <string name="facebook_app_id">183591896071099</string>
+    <string name="fb_login_protocol_scheme">183591896071099</string>
+    <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">DO_NOT_ASK_JAVASCRIPT</string>
+    <string name="CodePushDeploymentKey" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
+    <string name="appCenterAnalytics_whenToEnableAnalytics">W1sn6vecNIlsGs8FWI1eEmEswl__6s5DpnG_I</string>
+
+</resources>
+
