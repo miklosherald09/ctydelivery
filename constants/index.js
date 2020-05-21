@@ -71,8 +71,9 @@ export const ADMIN_EMAILS = [
   'miklos_herald@yahoo.com',
   'miklos.herald@gmail.com',
   'sen.rosario@gmail.com',
-  'rfv121400@GameRequestDialog.com',
-  'ctystore2020@gmail.com'
+  'rfv121400@gmail.com',
+  'ctystore2020@gmail.com',
+  'darkako55@gmail.com'
 ]
 
 // user
@@ -112,6 +113,7 @@ export const TOAST_MESSAGE_READY_TO_DELIVERED_SUCCESS = 'Order Delivered'
 export const TOAST_MESSAGE_USER_INFO_SAVED_SUCCESS = "User Details Saved!"
 export const TOAST_MESSAGE_ITEM_ADD_TO_CART_SUCCESS = 'Item added to cart!'
 export const TOAST_MESSAGE_PACKAGING_TO_READY_SUCCESS = 'Order is now ready'
+export const TOAST_MESSAGE_INVALID_ITEM_COUNTER_INPUT = 'Item count is not a number'
 
 // algolia
 export const INIT_ALGOLIA_SUCCESS = 'INIT_ALGOLIA_SUCCESS'

@@ -45,7 +45,7 @@ const itemReducer = (state = initialState, action) => {
     case ADD_ITEM_COUNT: {
       return {
         ...state,
-        itemCounter: state.itemCounter + action.count
+        itemCounter: parseInt(state.itemCounter) + action.count
       }
     }
     

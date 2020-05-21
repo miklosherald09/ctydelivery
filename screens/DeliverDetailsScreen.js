@@ -1,28 +1,22 @@
 import React, { Component, useEffect } from 'react'
-import { StyleSheet, View, Alert, FlatList, SafeAreaView, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Alert, FlatList, SafeAreaView, TouchableOpacity, Text } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Button, Input, Image, ListItem } from 'react-native-elements'
+import { computeCartTotal } from '../functions'
 import { 
   BLANK_IMAGE_LINK,
   DELIVERY_STATUS_PENDING,
   DELIVERY_STATUS_RECEIVED,
-  DELIVERY_STATUS_CHECKING,
-  DELIVERY_STATUS_ACCEPTED,
   DELIVERY_STATUS_PACKAGING,
   DELIVERY_STATUS_DELIVERED,
   DELIVERY_STATUS_READY } from '../constants'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { formatDate, transformDeliverTitleStyle, transformDeliverStatus } from '../functions'
-import { 
-  getDeliveries,
-  cancelPackaging,
-  toggleItemCheck,
-  refreshSelectedDelivery,
-  packaging,
-  ready,
-  delivered } from '../actions/deliverActions'
+import { getDeliveries, cancelPackaging, toggleItemCheck, refreshSelectedDelivery, packaging, ready, delivered } from '../actions/deliverActions'
+import NumberFormat from 'react-number-format'
+
 
 const deliverIcon = <FontAwesome5 name={'shipping-fast'} color="#2089DC" size={18}/>
 const checkIcon = <FontAwesome5 name={'check'} color="#2089DC" size={18}/>
@@ -37,10 +31,8 @@ const thumbsupIcon = <FontAwesome5 name={'thumbs-up'} color="#333" size={20} />
 const backIcon = <FontAwesome5 name={'chevron-left'} color="#666" size={22}/>
 const infoIcon = <FontAwesome5 name={'info-circle'} color="#666" size={22}/>
 
+
 const DeliverDetailsScreen = (props) => {
-
-  
-
 
   const Delivery = ({item}) => {
 
@@ -51,8 +43,17 @@ const DeliverDetailsScreen = (props) => {
           leftAvatar={item.checked?checkIcon:squareIcon}
           title={item.title}
           titleStyle={{fontSize: 15}}
-          subtitle={'₱'+item.count+' x '+item.price}
-          rightTitle={'₱'+item.price}
+          subtitle={'₱'+item.price+' x '+item.count}
+          rightTitle={
+            <NumberFormat
+              renderText={value => <Text style={{textAlign: 'right', fontSize: 18, color: '#333'}}>{value}</Text>} 
+              fixedDecimalScale={true} 
+              decimalScale={0} 
+              value={(item.price * item.count)}
+              displayType={'text'} 
+              thousandSeparator={true}
+              prefix={"₱"} />
+          }
           containerStyle={{borderBottomColor: '#F7F7F7', borderBottomWidth: 1, paddingHorizontal: 10, paddingVertical: 10}}
         />
       </TouchableOpacity>
@@ -65,9 +66,12 @@ const DeliverDetailsScreen = (props) => {
 
     let data = [
       'Cart Ref#: '+delivery.id,
+      delivery.userInfo.displayName,
+      delivery.userInfo.phoneNumber,
+      delivery.userInfo.address,
       formatDate(delivery.datetime, 2),
       'Items count: '+delivery.items.length,
-      'Total: '+delivery.total,
+      'Total: '+computeCartTotal(delivery.items),
     ]
 
     return (

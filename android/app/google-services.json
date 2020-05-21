@@ -15,6 +15,38 @@
       },
       "oauth_client": [
         {
+          "client_id": "762035873529-h71sp2cvp7h32v0u4il5bs4st7l6s2jg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ctydelivery",
+            "certificate_hash": "8f8e919b6b3e22fe18ad7c90a2e05003ad7285e2"
+          }
+        },
+        {
+          "client_id": "762035873529-e5otddgp1m29au2cm3q8gv7n8p30p148.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ctydelivery",
+            "certificate_hash": "ddcc37f8353a540ad14799b916fc5ef896f66219"
+          }
+        },
+        {
+          "client_id": "762035873529-00qn9ke17j3ahldit6iu114jqfm479t1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ctydelivery",
+            "certificate_hash": "09e04a70b7a09ec3fcf44988a76288ed21c84894"
+          }
+        },
+        {
+          "client_id": "762035873529-pvkf48nm62ntcotujtb4j0ehp02j0e0q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ctydelivery",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
           "client_id": "762035873529-e48nthg8qth3qn2l74g6jtpefsi86of5.apps.googleusercontent.com",
           "client_type": 3
         }

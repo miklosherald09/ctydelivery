@@ -30,6 +30,7 @@ const SearchScreen = (props) => {
   }
 
   const Item = ({item, onPress, imgUrl}) => {
+    delete item._highlightResult
     return (
       <TouchableOpacity  key={'search-item-'+item.id} onPress={() => props.selectItem(item)} >
         <ListItem
@@ -39,13 +40,7 @@ const SearchScreen = (props) => {
           title={item.title}
         />
       </TouchableOpacity>
-      // <TouchableOpacity style={{ flex: 1, height: boxHeight, margin: 2}} key={'item-'+ item.id} onPress={onPress}>
-      //   <View style={item.title?styles.squareBox:styles.squareBoxInvisible}>
-      //     <Image resizeMode="contain" style={{width: "100%", height: "100%"}} source={{ uri: item.custom_label_0 || BLANK_IMAGE_LINK }} />
-      //     <Text numberOfLines={1}>{item.title}</Text>
-      //   </View>
-      // </TouchableOpacity>
-    );
+    )
   }
 
   const { searchItems, searchText } = props.search

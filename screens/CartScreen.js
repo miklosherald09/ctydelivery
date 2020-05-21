@@ -42,7 +42,16 @@ function Item({title, price, count, onPress, id}) {
       <ListItem 
         title={title}
         subtitle={'₱'+price+ ' x ' +count}
-        rightTitle={'₱'+price * count}
+        rightTitle={
+          <NumberFormat
+            renderText={value => <Text style={{textAlign: 'right', fontSize: 20, color: '#333'}}>{value}</Text>} 
+            fixedDecimalScale={true} 
+            decimalScale={0} 
+            value={(price * count)}
+            displayType={'text'} 
+            thousandSeparator={true}
+            prefix={"₱"} />
+          }
         rightTitleStyle={{fontSize: 20, color: '#333'}}
         containerStyle={{padding: 5}}
       />

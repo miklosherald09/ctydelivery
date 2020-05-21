@@ -56,7 +56,7 @@ const HomeScreen = (props) => {
   }, [])
   
   return (
-    <View style={{flex: 1, backgroundColor: 'yellow'}}>
+    <View style={{flex: 1, backgroundColor: 'white'}}>
       <Notification />
       <TotalHeader />
       <SectionNavigation />

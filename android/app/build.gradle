@@ -168,19 +168,19 @@ android {
             // resValue "string", "CodePushDeploymentKey", '"W1sn6vecNIlsGs8FWI1eEmEswl__6s5DpnG_I"'
             resValue "string", "CodePushDeploymentKey", '"ilwBsbn8f2txw4DJtaVJr60kf29i2R05eGLz9"'
         }
-        releaseStaging {
-            resValue "string", "CodePushDeploymentKey", '"llg6So9vQBAqcaOjkIueFElo692vlfenPnN3B"'
-            // Note: It is a good idea to provide matchingFallbacks for the new buildType you create to prevent build issues
-            // Add the following line if not already there
-            matchingFallbacks = ['release']
-        }
+        // releaseStaging {
+        //     resValue "string", "CodePushDeploymentKey", '"llg6So9vQBAqcaOjkIueFElo692vlfenPnN3B"'
+        //     // Note: It is a good idea to provide matchingFallbacks for the new buildType you create to prevent build issues
+        //     // Add the following line if not already there
+        //     matchingFallbacks = ['release']
+        // }
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://facebook.github.io/react-native/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
-            resValue "string", "CodePushDeploymentKey", 'W1sn6vecNIlsGs8FWI1eEmEswl__6s5DpnG_I'
+            resValue "string", "CodePushDeploymentKey", '"W1sn6vecNIlsGs8FWI1eEmEswl__6s5DpnG_I"'
         }
     }
 

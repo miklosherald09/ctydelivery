@@ -8,15 +8,11 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import MainNavigation from './MainNavigation'
 import { getDeliveries, selectDelivery } from '../actions/deliverActions'
+import { computeCartTotal } from '../functions'
 
-const deliverIcon = <FontAwesome5 name={'shipping-fast'} color="#CCC" size={18}/>
-const checkIcon = <FontAwesome5 name={'check'} color="#2089DC" size={18}/>
-const shoppingCart = <MaterialIcons name={'shopping-cart'} color="#2089DC" size={20}/>
-const dashboardIcon = <MaterialIcons name={'dashboard'} color="#2089DC" size={22}/>
 const syncAltIcon = <FontAwesome5 name={'sync-alt'} color="#333" size={20}/>
 const infoIcon = <FontAwesome5 name={'info-circle'} color="#999" size={25}/>
 const backIcon = <FontAwesome5 name={'chevron-left'} color="#666" size={20}/>
-
 
 const DeliverScreen = (props) => {
 
@@ -24,12 +20,15 @@ const DeliverScreen = (props) => {
     props.getDeliveries()
   }, [])
 
-  const reightAvatar = (item) => {
+  const reightAvatar = (delivery) => {
     let data = [
-      'Cart Ref#: '+item.id,
-      formatDate(item.datetime, 2),
-      'Items count: '+item.items.length,
-      'Total: '+item.total,
+      'Cart Ref#: '+delivery.id,
+      delivery.userInfo.displayName,
+      delivery.userInfo.phoneNumber,
+      delivery.userInfo.address,
+      formatDate(delivery.datetime, 2),
+      'Items count: '+delivery.items.length,
+      'Total: '+computeCartTotal(delivery.items),
     ]
 
     return (
@@ -51,7 +50,6 @@ const DeliverScreen = (props) => {
       <TouchableOpacity key={'Delivery-'+item.id} onPress={() => {
         props.selectDelivery(item)
         props.navigation.navigate('DeliverDetails', {})}
-        
       } >
       <ListItem
         leftAvatar={{ rounded: true, source: { uri: item.userInfo.photoURL || BLANK_IMAGE_LINK } }}

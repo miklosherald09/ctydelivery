@@ -66,8 +66,9 @@ const ItemModal = (props) => {
               inputContainerStyle={{borderBottomWidth: 0}} 
               keyboardType="numeric"
               textAlign={"center"}
-              defaultValue={String(itemCounter)}
-              onChangeText={(n) => changeItemCount(n)} />
+              value={String(itemCounter)}
+              onFocus={() => props.changeItemCount('')}
+              onChangeText={(n) => props.changeItemCount(n)} />
             <Button 
               type="clear" 
               icon={plusIcon}

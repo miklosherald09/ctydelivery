@@ -58,8 +58,23 @@ export function addToCart(item, counter){
     
     const { user, cart } = getState()
 
+    const deliveredAlert = () => {
+      Alert.alert(
+        ALERT_MESSAGE_DELIVERED_TITLE,
+        ALERT_MESSAGE_DELIVERED_SUBTITLE,
+        [{ text: "Okay", onPress: () => { dispatch(addEmptyCart()) }}
+        ],
+        { cancelable: true }
+      )
+    }
+
     if(!user.userInfo.uid){
       dispatch({type: AUTH_MODAL_VISIBLE, visible: true})
+    }
+    else if(!parseInt(counter)){
+      dispatch({type: ITEM_MODAL_VISIBLE, visible: false})
+      dispatch(removeCartItem(item))
+      dispatch(removeCartItemFbase(item))
     }
     else if(item.availability == 'out of stock' || item.availability != 'in stock'){
       Alert.alert(
@@ -69,7 +84,7 @@ export function addToCart(item, counter){
         {cancelable: true}
       )
     }
-    else if(![DELIVERY_STATUS_PENDING, DELIVERY_STATUS_RECEIVED].includes(cart.activeCart.deliveryStatus)){
+    else if([DELIVERY_STATUS_PACKAGING, DELIVERY_STATUS_READY].includes(cart.activeCart.deliveryStatus)){
       Alert.alert(
         ALERT_MESSAGE_ORDER_IN_FREEZE_MODE_TITLE,
         ALERT_MESSAGE_ORDER_IN_FREEZE_MODE_SUBTITLE,
@@ -77,9 +92,13 @@ export function addToCart(item, counter){
         {cancelable: true}
       )
     }
+    else if(cart.activeCart.deliveryStatus == DELIVERY_STATUS_DELIVERED){
+      deliveredAlert()
+    }
     else {
       dispatch({type: ITEM_MODAL_VISIBLE, visible: false})
       dispatch({ type: ADD_TO_CART, item: item, counter: counter  })
+      dispatch(saveCart(item))
       ToastAndroid.showWithGravity(
         TOAST_MESSAGE_ITEM_ADD_TO_CART_SUCCESS,
         ToastAndroid.LONG,
@@ -177,7 +196,8 @@ export function addEmptyCart(){
         uid: user.userInfo.uid,
         displayName: user.userInfo.displayName,
         photoURL: user.userInfo.photoURL,
-        phoneNumber: user.userInfo.phoneNumber
+        phoneNumber: user.userInfoFirebase.phoneNumber,
+        address: user.userInfoFirebase.address
       },
       items: [],
       deliveryStatus: DELIVERY_STATUS_PENDING,
@@ -211,7 +231,8 @@ export function addNewCart(){
         uid: user.userInfo.uid,
         displayName: user.userInfo.displayName,
         photoURL: user.userInfo.photoURL,
-        phoneNumber: user.userInfo.phoneNumber
+        phoneNumber: user.userInfoFirebase.phoneNumber,
+        address: user.userInfoFirebase.address
       },
       items: cart.activeCart.items,
       deliveryStatus: DELIVERY_STATUS_PENDING,
@@ -243,38 +264,15 @@ export function saveCart(item){
     // make sure that the cart delivery 
     // status is pending & received only
 
-    // firestore()
-    //   .collection('carts')
-    //   .doc(cart.activeCart.id)
-    //   .get()
-    //   .then(doc => {
-    //     canUpdate = [DELIVERY_STATUS_PENDING, DELIVERY_STATUS_RECEIVED].includes(doc.data().deliveryStatus)
-    //     if(canUpdate){
-    //       console.log('canUpdate')
-          
-    // firestore()
-    //   .collection('carts')
-    //   .doc(cart.activeCart.id)
-    //   .update({
-    //     items: cart.activeCart.items,
-    //     total: cart.activeCart.total
-    //   })
-    //   .then(() => {
-    //     console.log('Cart updated')
-    //   })
-      //   else{
-      //      console.log('canUpdate')
-      //   }
-      // })
-
     firestore()
       .collection('carts')
       .doc(cart.activeCart.id)
       .get()
       .then(doc => {
+
         canUpdate = [DELIVERY_STATUS_PENDING, DELIVERY_STATUS_RECEIVED].includes(doc.data().deliveryStatus)
+        
         if(canUpdate){
-          
           firestore()
           .collection('carts')
           .doc(cart.activeCart.id)
@@ -444,6 +442,8 @@ export function cancelDeliver(){
 }
 
 export function removeCartItem(item){
+  console.log('removeing item')
+  console.log(item)
   return { 
     type: REMOVE_CART_ITEM,
     item: item

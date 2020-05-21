@@ -1,4 +1,4 @@
-import { Alert } from 'react-native'
+import { Alert, ToastAndroid } from 'react-native'
 import { 
   SELECT_ITEM, 
   ITEM_MODAL_VISIBLE, 
@@ -11,10 +11,12 @@ import {
   STOP_AUTO_INCREMENT_ITEM_COUNT,
   SNYC_ITEMS_CSV_SUCCESS,
   AUTH_MODAL_VISIBLE,
+  TOAST_MESSAGE_INVALID_ITEM_COUNTER_INPUT,
 } from '../constants'
 import firestore, { firebase } from '@react-native-firebase/firestore'
 import { csvJSON, findWithAttr } from '../functions'
 import { removeCartItem, removeCartItemFbase } from './cartActions'
+
 
 
 export function itemModalVisible(visible) {
@@ -56,8 +58,6 @@ export function addItemCount(count){
     const { item } = getState()
 
     currCounter = item.itemCounter + count
-    // countDiff = count - item.selectedItem.count
-    // console.log("currCounter: "+currCounter)
 
     if(currCounter == 0){
       dispatch(removeCartItem(item.selectedItem))
@@ -73,9 +73,28 @@ export function addItemCount(count){
 }
 
 export function changeItemCount(count){
-  return {
-    type: CHANGE_ITEM_COUNT,
-    count: count
+
+  return (dispatch, getState) => {
+
+    const { item } = getState()
+
+    if(isNaN(count)){
+      ToastAndroid.showWithGravity(
+        TOAST_MESSAGE_INVALID_ITEM_COUNTER_INPUT,
+        ToastAndroid.SHORT,
+        ToastAndroid.BOTTOM
+      )
+      dispatch({
+        type: CHANGE_ITEM_COUNT,
+        count: item.itemCounter
+      })
+    }
+    else{
+      dispatch({
+        type: CHANGE_ITEM_COUNT,
+        count: count
+      })
+    }
   }
 }
 

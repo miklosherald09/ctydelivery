@@ -61,7 +61,6 @@ const cartReducer = (state = initialState, action) => {
       return {
         ...state
       }
-      
     }
     
     case PUNCH_ITEM: {
