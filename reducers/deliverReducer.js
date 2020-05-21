@@ -15,7 +15,6 @@ import {
   READY_TO_DELIVERED_BEGIN,
   READY_TO_DELIVERED_SUCCESS
  } from '../constants'
-import { ActionSheetIOS } from 'react-native'
 
 const initialState = {
   deliveries: [],

@@ -1,5 +1,4 @@
 import { INIT_ALGOLIA_SUCCESS } from '../constants'
-import firestore from '@react-native-firebase/firestore'
 import algoliasearch from 'algoliasearch/lite'
 
 export function initAlgolia(){

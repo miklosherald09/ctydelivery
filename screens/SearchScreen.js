@@ -1,19 +1,15 @@
-import React, { Component } from 'react'
-import { StyleSheet, View, Dimensions, Text, ActivityIndicator, FlatList, ScrollView, SafeAreaView, TouchableOpacity } from 'react-native'
+import React from 'react'
+import { StyleSheet, View, Dimensions, FlatList, SafeAreaView, TouchableOpacity } from 'react-native'
 import { BLANK_IMAGE_LINK } from '../constants'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { Button, Input, Image, ListItem, Avatar } from 'react-native-elements'
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+import { Input, ListItem, Avatar } from 'react-native-elements'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import MainNavigation from './MainNavigation'
-import { formatData } from '../functions'
-import { searchModalVisible, getSearchItems, searchItems, setSearchText } from '../actions/searchActions'
-import { selectItem, punchItem, itemModalVisible } from '../actions/itemActions'
+import { searchModalVisible, searchItems, setSearchText } from '../actions/searchActions'
+import { selectItem, punchItem } from '../actions/itemActions'
 import ItemModal from '../modals/ItemModal'
 
 const searchIcon = <MaterialIcons name={'search'} color="#333" size={28}/>
-const boxHeight = Dimensions.get('window').height / 6
 
 const SearchScreen = (props) => {
 
@@ -43,8 +39,7 @@ const SearchScreen = (props) => {
     )
   }
 
-  const { searchItems, searchText } = props.search
-  const { sectionItems } = props.section
+  const { searchItems } = props.search
 
   return (
     <View style={styles.container}>
@@ -65,11 +60,8 @@ const SearchScreen = (props) => {
             data={searchItems}
             renderItem={({item}) => <Item item={item} id={item.id} title={item.title} price={item.price}/>}
             keyExtractor={item => String(item.id)}
-            // numColumns={4}
             initialNumToRender={24}
             onEndReachedThreshold={.01}
-            // onEndReached={() => props.getSearchItems()}
-            // columnWrapperStyle={{ marginBottom: 2}}
           />
         </SafeAreaView >
       </View>

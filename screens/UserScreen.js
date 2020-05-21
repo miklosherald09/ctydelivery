@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, Text, FlatList, Alert } from 'react-native'
+import { StyleSheet, View, Text } from 'react-native'
 import { connect } from 'react-redux'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import MainNavigation from './MainNavigation'
@@ -8,7 +8,6 @@ import TotalHeader from './TotalHeader'
 import { signOut } from '../actions/authActions'
 import { updateUserInfoDialogVisible, updateAddressInput, updateMobileInput } from '../actions/userActions'
 import { Button, Avatar } from 'react-native-elements'
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import UserInfoModal from '../modals/UserInfoModal'
 
 const signOutIcon = <FontAwesome5 name={'sign-out-alt'} color="#666" size={20}/>
@@ -17,7 +16,7 @@ const phoneIcon = <FontAwesome5 name={'phone-volume'} color="#666" size={22}/>
 
 const UserScreen = (props) => {
 
-  const { userInfo, updateUserInfoDialogVisible, userInfoFirebase } = props.user
+  const { userInfo, userInfoFirebase } = props.user
 
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>

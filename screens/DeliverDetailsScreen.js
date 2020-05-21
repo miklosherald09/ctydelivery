@@ -1,8 +1,7 @@
-import React, { Component, useEffect } from 'react'
+import React from 'react'
 import { StyleSheet, View, Alert, FlatList, SafeAreaView, TouchableOpacity, Text } from 'react-native'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { Button, Input, Image, ListItem } from 'react-native-elements'
+import { Button, ListItem } from 'react-native-elements'
 import { computeCartTotal } from '../functions'
 import { 
   BLANK_IMAGE_LINK,
@@ -12,15 +11,12 @@ import {
   DELIVERY_STATUS_DELIVERED,
   DELIVERY_STATUS_READY } from '../constants'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { formatDate, transformDeliverTitleStyle, transformDeliverStatus } from '../functions'
 import { getDeliveries, cancelPackaging, toggleItemCheck, refreshSelectedDelivery, packaging, ready, delivered } from '../actions/deliverActions'
 import NumberFormat from 'react-number-format'
 
 
-const deliverIcon = <FontAwesome5 name={'shipping-fast'} color="#2089DC" size={18}/>
 const checkIcon = <FontAwesome5 name={'check'} color="#2089DC" size={18}/>
-const shoppingCart = <MaterialIcons name={'shopping-cart'} color="#2089DC" size={20}/>
 const shippingIcon = <FontAwesome5 name={'shipping-fast'} color="white" size={22}/>
 const squareIcon = <FontAwesome5 name={'square'} color="#666" size={22}/>
 const syncAltIcon = <FontAwesome5 name={'sync-alt'} color="#666" size={20}/>
@@ -125,21 +121,11 @@ const DeliverDetailsScreen = (props) => {
               keyExtractor={item => String(item.id)}
               initialNumToRender={24}
               onEndReachedThreshold={.01}
-              // onEndReached={() => props.getSectionItems(section)}
-              // columnWrapperStyle={{ marginBottom: 2}}
             />
             
           </SafeAreaView >
         </View>
       </View>
-      {/* <View style={{borderTopColor: '#EEE', borderTopWidth: 1, paddingTop: 10}}>
-        <ListItem
-          title={'Total'}
-          rightTitle={'₱' +selectedDelivery.total}
-          rightTitleStyle={{color: '#333'}}
-          containerStyle={{paddingVertical: 0}}
-        />
-      </View> */}
       {
         (selectedDelivery.deliveryStatus == DELIVERY_STATUS_RECEIVED)?
         <View style={{padding: 10}}>

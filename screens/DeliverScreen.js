@@ -1,11 +1,10 @@
-import React, { Component, useEffect } from 'react'
-import { StyleSheet, View, Alert, Text, ActivityIndicator, FlatList, ScrollView, SafeAreaView, TouchableHighlight, TouchableOpacity } from 'react-native'
+import React, { useEffect } from 'react'
+import { StyleSheet, View, Alert, FlatList,  SafeAreaView, TouchableHighlight, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
-import { Button, Input, Image, ListItem } from 'react-native-elements'
+import { Button, ListItem } from 'react-native-elements'
 import { BLANK_IMAGE_LINK  } from '../constants'
 import { formatDate, transformDeliverTitleStyle, transformDeliverStatus } from '../functions'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import MainNavigation from './MainNavigation'
 import { getDeliveries, selectDelivery } from '../actions/deliverActions'
 import { computeCartTotal } from '../functions'
@@ -58,7 +57,6 @@ const DeliverScreen = (props) => {
         titleStyle={item.deliveryStatus}
         subtitleStyle={transformDeliverTitleStyle(item.deliveryStatus)}
         subtitle={transformDeliverStatus(item.deliveryStatus)}
-        // chevron={{ color: '#333' }}
         rightAvatar={reightAvatar(item)} />
       </TouchableOpacity>
     );
@@ -93,8 +91,6 @@ const DeliverScreen = (props) => {
               keyExtractor={item => String(item.id)}
               initialNumToRender={24}
               onEndReachedThreshold={.01}
-              // onEndReached={() => props.getSectionItems(section)}
-              // columnWrapperStyle={{ marginBottom: 2}}
             />
           </SafeAreaView >
         </View>

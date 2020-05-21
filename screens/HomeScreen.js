@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
-import { StyleSheet, View, TouchableOpacity, Dimensions, FlatList, SafeAreaView, Text } from 'react-native'
+import { StyleSheet, View, TouchableOpacity, Dimensions, FlatList, SafeAreaView } from 'react-native'
 import { connect } from 'react-redux'
-import { Button, Input, Image } from 'react-native-elements'
+import { Button, Image } from 'react-native-elements'
 import MainNavigation from './MainNavigation'
 import TotalHeader from './TotalHeader'
 import Notification from './Notification'
@@ -23,7 +23,6 @@ function Item({item, onPress, onLongPress, gpc}) {
   return (
     <TouchableOpacity 
       style={{ flex: 1, height: boxHeight, margin: 2}} 
-      // key={key}
       onPress={onPress}
       onLongPress={onLongPress} >
       <View style={item.title?styles.squareBox:styles.squareBoxInvisible}>
@@ -69,7 +68,6 @@ const HomeScreen = (props) => {
 
               return (
                 <SafeAreaView  key={sectionKey} style={match?styles.sectionItemsPan:styles.sectionItemsPanVisible}>
-                  {/* <Text>google_product_categxory: {activeSection.google_product_category}</Text> */}
                   <FlatList
                     style={{flex: 1}}
                     data={sectionItems[section.google_product_category]}

@@ -1,8 +1,7 @@
-import React, { Component } from 'react'
-import { StyleSheet, View, Text, ActivityIndicator, FlatList, ScrollView } from 'react-native'
+import React from 'react'
+import { StyleSheet, View } from 'react-native'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { Button, Input, Image } from 'react-native-elements'
+import { Button } from 'react-native-elements'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 
 const searchIcon = <FontAwesome5 name={'search'} color="#666" size={15}/>

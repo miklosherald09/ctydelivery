@@ -1,30 +1,17 @@
-import React, { Component, useState } from 'react'
-import { StyleSheet, View, Image, Text, TouchableOpacity, Dimensions, SafeAreaView } from 'react-native'
+import React from 'react'
+import { StyleSheet, View, Image, Dimensions } from 'react-native'
 import { connect } from 'react-redux'
-import { Button, Input } from 'react-native-elements'
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
-import { itemModalVisible, selectItem, updatePunchCountDisplay } from '../actions/itemActions'
+import { Button } from 'react-native-elements'
+import { itemModalVisible, selectItem } from '../actions/itemActions'
 import { getSectionItems } from '../actions/sectionActions'
 import { punchItem } from '../actions/cartActions'
 import { searchModalVisible } from '../actions/searchActions'
-import { BLANK_IMAGE_LINK } from '../constants'
-import SectionNavigation from './SectionNavigation'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
-const searchIcon = <FontAwesome5 name={'search'} color="#666" size={15}/>
-const storeIcon = <FontAwesome5 name={'shopping-cart'} color="#666" size={22}/>
-const deliverIcon = <FontAwesome5 name={'truck'} color="#666" size={22}/>
-const circleIcon = <FontAwesome5 name={'circle'} color="#666" size={22}/>
 const shoppingCart = <MaterialIcons name={'shopping-cart'} color="white" size={25}/>
-
-const numColumns = 4
-const boxHeight = Dimensions.get('window').height / 8
 
 const WelcomeScreen = (props) => {
 
-  const { itemModalVisible } = props.item
-  const { activeSection, sections, sectionItems } = props.section
-  
   return (
     <View style={{flex: 1, backgroundColor: '#169102'}}>
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center' }} >
@@ -35,7 +22,6 @@ const WelcomeScreen = (props) => {
           titleStyle={{color: 'white', fontSize: 15, marginLeft: 10}}
           icon={shoppingCart}
           containerStyle={{borderColor: 'white', borderWidth: 2, paddingHorizontal: 5, borderRadius: 5}}
-          // buttonStyle={{backgroundColor: 'red'}}
           type="clear"
         />
       </View>
@@ -100,15 +86,8 @@ const mapDispatchToProps = dispatch => {
       dispatch(itemModalVisible(true))
       dispatch(selectItem(item))
     },
-    searchModalVisible: (visible) => {
-      dispatch(searchModalVisible(visible))
-    },
-    punchItem: (item) => {
-      dispatch(punchItem(item))
-      // setTimeout(() => {
-      //   dispatch(updatePunchCountDisplay(item))
-      // }, 100)
-    },
+    searchModalVisible: (visible) => { dispatch(searchModalVisible(visible)) },
+    punchItem: (item) => { dispatch(punchItem(item)) }
   }
 }
 

@@ -13,7 +13,7 @@ import {
   AUTH_MODAL_VISIBLE,
   TOAST_MESSAGE_INVALID_ITEM_COUNTER_INPUT,
 } from '../constants'
-import firestore, { firebase } from '@react-native-firebase/firestore'
+import firestore from '@react-native-firebase/firestore'
 import { csvJSON, findWithAttr } from '../functions'
 import { removeCartItem, removeCartItemFbase } from './cartActions'
 

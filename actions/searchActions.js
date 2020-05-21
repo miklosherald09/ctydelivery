@@ -1,8 +1,4 @@
-import { 
-  SEARCH_MODAL_VISIBLE, 
-  SEARCH_ITEMS_SUCCESS,
-  SET_SEARCH_TEXT } from '../constants'
-
+import { SEARCH_MODAL_VISIBLE, SEARCH_ITEMS_SUCCESS, SET_SEARCH_TEXT } from '../constants'
 
 export function searchModalVisible(visible) {
   return {

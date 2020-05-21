@@ -1,5 +1,5 @@
-import { SELECT_SECTION, GET_SECTIONS_SUCCESS, GET_SECTION_ITEMS, INIT_SECTION_ITEMS, ITEM_FETCH_LIMIT } from '../constants'
-import { formatData, filterBox, findWithAttr } from '../functions'
+import { SELECT_SECTION, GET_SECTIONS_SUCCESS, GET_SECTION_ITEMS, INIT_SECTION_ITEMS } from '../constants'
+import { formatData, findWithAttr } from '../functions'
 import firestore from '@react-native-firebase/firestore'
 
 export function getSections(){

@@ -1,13 +1,10 @@
 import { Alert } from 'react-native'
-import { AUTH_MODAL_VISIBLE, AUTH_SUCCESS } from '../constants'
-import { SET_CONFIRMATION, SET_USER_INFO } from '../constants'
+import { AUTH_MODAL_VISIBLE, AUTH_SUCCESS, SET_CONFIRMATION, SET_USER_INFO } from '../constants'
 import { GoogleSignin, statusCodes } from '@react-native-community/google-signin'
 import auth from '@react-native-firebase/auth'
-import { LoginManager, LoginButton, AccessToken } from 'react-native-fbsdk'
-import { NavigationActions } from '@react-navigation/native'
+import { LoginManager, AccessToken } from 'react-native-fbsdk'
 import * as RootNavigation from '../RootNavigation.js'
 import { getActiveCart, clearCart } from './cartActions'
-import { getDeliveries } from './deliverActions'
 import { initUserInfoFirebase } from './userActions'
 
 

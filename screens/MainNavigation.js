@@ -1,24 +1,17 @@
-import React, { Component, useState } from 'react'
-import { StyleSheet, View, Text, ActivityIndicator, FlatList, ScrollView } from 'react-native'
+import React from 'react'
+import { StyleSheet, View } from 'react-native'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import { ADMIN_EMAILS } from '../constants'
-import { Button, Input, Image, Avatar } from 'react-native-elements'
+import { Button, Avatar } from 'react-native-elements'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import { syncItemsCsv } from '../actions/itemActions'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 const shoppingCart = <MaterialIcons name={'shopping-cart'} color="#666" size={28}/>
 const searchIcon = <FontAwesome5 name={'search'} color="#666" size={22}/>
-const storeIcon = <FontAwesome5 name={'shopping-cart'} color="#666" size={22}/>
-const deliverIcon = <FontAwesome5 name={'truck'} color="#666" size={22}/>
-const circleIcon = <FontAwesome5 name={'circle'} color="#666" size={22}/>
 const syncIcon = <FontAwesome5 name={'sync'} color="#666" size={22}/>
-const userIcon = <FontAwesome5 name={'user'} color="#666" size={22}/>
-const signInIcon = <FontAwesome5 name={'car'} color="#666" size={22}/>
 const plusSquareIcon = <FontAwesome5 name={'plus-square'} color="#666" size={25}/>
 const boxOpenIcon = <FontAwesome5 name={'box-open'} color="#666" size={22}/>
-
 
 
 const MainNavigation = (props) => {

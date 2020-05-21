@@ -4,8 +4,6 @@ import { connect } from 'react-redux'
 import { 
   DELIVERY_STATUS_PENDING,
   DELIVERY_STATUS_RECEIVED, 
-  DELIVERY_STATUS_CHECKING,
-  DELIVERY_STATUS_LINED_UP,
   DELIVERY_STATUS_READY,
   DELIVERY_STATUS_PACKAGING,
   ALERT_MESSAGE_CLEAR_ITEMS
@@ -15,21 +13,17 @@ import MainNavigation from './MainNavigation'
 import NumberFormat from 'react-number-format'
 import TotalHeader from './TotalHeader'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import { itemModalVisible, selectItem } from '../actions/itemActions'
+import { selectItem } from '../actions/itemActions'
 import { authModalVisible } from '../actions/authActions'
 import { Button, ListItem } from 'react-native-elements'
 import AuthModal from '../modals/AuthModal'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { saveCartItems, clearCartItems, deliver, cancelDeliver, addressDialogVisible } from '../actions/cartActions'
 import { updateAddressInput, saveAddress } from '../actions/userActions'
-import { setConfirmation, authenticationGuard } from '../actions/authActions'
+import { setConfirmation } from '../actions/authActions'
 import Notification from './Notification'
 
-const searchIcon = <FontAwesome5 name={'search'} color="#666" size={15}/>
-const storeIcon = <FontAwesome5 name={'shopping-cart'} color="#666" size={22}/>
 const deliverIcon = <FontAwesome5 name={'shipping-fast'} color="white" size={20}/>
-const checkIcon = <FontAwesome5 name={'check'} color="white" size={22}/>
-const shoppingCart = <MaterialIcons name={'shopping-cart'} color="black" size={22}/>
 const circleIcon = <FontAwesome5 name={'circle'} color="#999" size={20}/>
 const banIcon = <FontAwesome5 name={'ban'} color="#999" size={18}/>
 const loading = <ActivityIndicator size={20} color="white" />
@@ -170,7 +164,6 @@ const mapDispatchToProps = dispatch => {
       dispatch(authModalVisible(visible))
     },
     saveCartItems: () => {
-      // dispatch(authenticationGuard())
       dispatch(saveCartItems())
     },
     clearCartItems: () => { 
