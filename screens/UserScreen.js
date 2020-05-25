@@ -2,6 +2,7 @@ import React from 'react'
 import { StyleSheet, View, Text } from 'react-native'
 import { connect } from 'react-redux'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+import { ADMIN_EMAILS } from '../constants'
 import MainNavigation from './MainNavigation'
 import Notification from './Notification'
 import TotalHeader from './TotalHeader'
@@ -9,10 +10,12 @@ import { signOut } from '../actions/authActions'
 import { updateUserInfoDialogVisible, updateAddressInput, updateMobileInput } from '../actions/userActions'
 import { Button, Avatar } from 'react-native-elements'
 import UserInfoModal from '../modals/UserInfoModal'
+import { syncItemsCsv } from '../actions/itemActions'
 
 const signOutIcon = <FontAwesome5 name={'sign-out-alt'} color="#666" size={20}/>
 const addressIcon = <FontAwesome5 name={'map-marker-alt'} color="#666" size={20}/>
 const phoneIcon = <FontAwesome5 name={'phone-volume'} color="#666" size={22}/>
+const syncIcon = <FontAwesome5 name={'sync'} color="#666" size={20}/>
 
 const UserScreen = (props) => {
 
@@ -55,6 +58,17 @@ const UserScreen = (props) => {
               onPress={() => props.updateUserInfoDialogVisible(true)}
             />
           </View>
+          {
+            (userInfo && ADMIN_EMAILS.includes(userInfo.email))?
+            <View style={{flexDirection: 'row'}}>
+            <Button
+              type='clear'
+              title="Synchronize Data"
+              titleStyle={styles.userDetails}
+              icon={syncIcon}
+              onPress={() => props.syncItemsCsv('sync')}
+            /></View>:null
+          }
           <View style={{alignItems: 'flex-start'}}>
             <Button
               onPress={() => props.signOut()}
@@ -101,6 +115,7 @@ const mapDispatchToProps = dispatch => {
     updateUserInfoDialogVisible: (visible) => dispatch(updateUserInfoDialogVisible(visible)),
     updateAddressInput: (text) => dispatch(updateAddressInput(text)),
     updateMobileInput: (text) => dispatch(updateMobileInput(text)),
+    syncItemsCsv: () => dispatch(syncItemsCsv()),
   }
 }
 

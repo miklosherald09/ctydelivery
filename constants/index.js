@@ -1,8 +1,7 @@
-import { GameRequestDialog } from "react-native-fbsdk"
-
-// miscellaneous
+// configs
 export const ITEM_FETCH_LIMIT = 18
 export const CURRENCY = '₱'
+export const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSRag1ttKQ1OOeKKI3BeQzdvA9TfEsDImpgMm7dcp17j97qkMcVTbKEtrt31fAhsL7_CxCfGPjXNPqS/pub?gid=0&single=true&output=csv"
 
 // items
 export const ITEM_MODAL_VISIBLE = 'ITEM_MODAL_VISIBLE'
@@ -135,6 +134,9 @@ export const PACKAGING_TO_READY_BEGIN = 'PACKAGING_TO_READY_BEGIN'
 export const PACKAGING_TO_READY_SUCCESS = 'PACKAGING_TO_READY_SUCCESS'
 export const READY_TO_DELIVERED_BEGIN = 'READY_TO_DELIVERED_BEGIN'
 export const READY_TO_DELIVERED_SUCCESS = 'READY_TO_DELIVERED_SUCCESS'
+export const REFRESH_GET_DELIVERIES = 'REFRESH_GET_DELIVERIES'
+
+
 
 // notifications
 export const DELIVERY_RECEIVED_NOTIF_MESSAGE = "Your order is received. You can still add items to your cart until we start packaging your order"
@@ -153,3 +155,4 @@ export const ALERT_MESSAGE_DELIVERED_SUBTITLE = "Start Shopping again!"
 
 export const ALERT_MESSAGE_USER_INFO_INCOMPLETE_TITLE = "We need your email & mobile #"
 export const ALERT_MESSAGE_USER_INFO_INCOMPLETE_SUBTITLE = "Please fill up forms"
+

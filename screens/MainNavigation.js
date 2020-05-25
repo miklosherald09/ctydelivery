@@ -4,12 +4,10 @@ import { connect } from 'react-redux'
 import { ADMIN_EMAILS } from '../constants'
 import { Button, Avatar } from 'react-native-elements'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
-import { syncItemsCsv } from '../actions/itemActions'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 const shoppingCart = <MaterialIcons name={'shopping-cart'} color="#666" size={28}/>
 const searchIcon = <FontAwesome5 name={'search'} color="#666" size={22}/>
-const syncIcon = <FontAwesome5 name={'sync'} color="#666" size={22}/>
 const plusSquareIcon = <FontAwesome5 name={'plus-square'} color="#666" size={25}/>
 const boxOpenIcon = <FontAwesome5 name={'box-open'} color="#666" size={22}/>
 
@@ -42,14 +40,6 @@ const MainNavigation = (props) => {
           type='clear'
           icon={boxOpenIcon}
           onPress={() => props.navigation.navigate('Deliver', {})}
-        />:null
-      }
-      {
-        (userInfo && ADMIN_EMAILS.includes(userInfo.email))?
-        <Button
-          type='clear'
-          icon={syncIcon}
-          onPress={() => props.syncItemsCsv('sync')}
         />:null
       }
       {
@@ -87,7 +77,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    syncItemsCsv: () => dispatch(syncItemsCsv()),
     showCurrentUser: () => dispatch(showCurrentUser()),
     getCurrentUserGoogle: () => dispatch(getCurrentUserGoogle()),
 

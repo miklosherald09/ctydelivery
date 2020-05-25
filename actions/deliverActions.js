@@ -27,42 +27,69 @@ import {
   TOAST_MESSAGE_RECEIVED_TO_PACKAGING_SUCCESS,
   TOAST_MESSAGE_PACKAGING_TO_RECEIVED_SUCCESS,
   TOAST_MESSAGE_READY_TO_DELIVERED_SUCCESS,
-  TOAST_MESSAGE_PACKAGING_TO_READY_SUCCESS
+  TOAST_MESSAGE_PACKAGING_TO_READY_SUCCESS,
+  REFRESH_GET_DELIVERIES
 } from '../constants'
 import { Alert, ToastAndroid } from 'react-native'
 import firestore from '@react-native-firebase/firestore'
 
-export function getDeliveries() {
+export function getDeliveries(){
 
   return (dispatch, getState) => {
 
-    dispatch({type: GET_DELIVERIES_BEGIN})
+    const { deliver } = getState()
 
-    const { user, cart } = getState()
-  
-    firestore()
-      .collection('carts')
-      .where('deliveryStatus', 'in', [
-        DELIVERY_STATUS_PACKAGING,
-        DELIVERY_STATUS_RECEIVED,
-        DELIVERY_STATUS_READY
-      ])
-      .limit(50)
-      .orderBy('datetime', 'desc')
-      .onSnapshot(querySnapshot => {
+    if(!deliver.getDeliveriesOnProgress){
+
+      dispatch({type: GET_DELIVERIES_BEGIN})
+      firestoreQuery = null
+      if(!deliver.lastDeliveryDoc){
+        firestoreQuery = firestore()
+          .collection('carts')
+          .orderBy('datetime', 'desc')
+          .limit(15)
+      }
+      else{
+        firestoreQuery = firestore()
+          .collection('carts')
+          .orderBy('datetime', 'desc')
+          .startAfter(deliver.lastDeliveryDoc)
+          .limit(15)
+      }
+        console.log('deliver.lastDeliveryDoc: ')
+       
+        firestoreQuery.onSnapshot(querySnapshot => {
         deliveries = []
+        lastDeliveryDoc = null
+        console.log(querySnapshot.size)
+
         if(querySnapshot.size > 0){
-          querySnapshot.forEach(snap => {
-            snapDeliver = snap.data()
-            snapDeliver.id = snap.id
+          querySnapshot.forEach((doc, i) => {
+            snapDeliver = doc.data()
+            snapDeliver.id = doc.id
             deliveries.push(snapDeliver)
+            
+            if(i == querySnapshot.size - 1){
+              lastDeliveryDoc = doc
+            }
           })
+
           dispatch({
             type: GET_DELIVERIES_SUCCESS,
             deliveries: deliveries,
+            lastDeliveryDoc: lastDeliveryDoc
           })
         }
-    })
+        })
+    
+    }
+  }
+}
+
+export function refreshDeliveries(){
+  return (dispatch, getState) => {
+    dispatch({type: REFRESH_GET_DELIVERIES})
+    dispatch(getDeliveries())
   }
 }
 

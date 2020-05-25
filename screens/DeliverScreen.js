@@ -3,11 +3,10 @@ import { StyleSheet, View, Alert, FlatList,  SafeAreaView, TouchableHighlight, T
 import { connect } from 'react-redux'
 import { Button, ListItem } from 'react-native-elements'
 import { BLANK_IMAGE_LINK  } from '../constants'
-import { formatDate, transformDeliverTitleStyle, transformDeliverStatus } from '../functions'
+import { transformDeliverTitleStyle, transformDeliverStatus, genDeliveryDetails } from '../functions'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import MainNavigation from './MainNavigation'
-import { getDeliveries, selectDelivery } from '../actions/deliverActions'
-import { computeCartTotal } from '../functions'
+import { getDeliveries, selectDelivery, refreshDeliveries } from '../actions/deliverActions'
 
 const syncAltIcon = <FontAwesome5 name={'sync-alt'} color="#333" size={20}/>
 const infoIcon = <FontAwesome5 name={'info-circle'} color="#999" size={25}/>
@@ -20,22 +19,11 @@ const DeliverScreen = (props) => {
   }, [])
 
   const reightAvatar = (delivery) => {
-    let data = [
-      'Cart Ref#: '+delivery.id,
-      delivery.userInfo.displayName,
-      delivery.userInfo.phoneNumber,
-      delivery.userInfo.address,
-      formatDate(delivery.datetime, 2),
-      'Items count: '+delivery.items.length,
-      'Total: '+computeCartTotal(delivery.items),
-      'Remarks: '+delivery.remarks
-    ]
-
     return (
       <TouchableHighlight onPress={() => {
         Alert.alert(
           'Deliver Details',
-          data.join('\n'),
+          genDeliveryDetails(delivery),
           [{'text': 'Ok'}],
           {cancelable: true})}
         }>
@@ -48,17 +36,8 @@ const DeliverScreen = (props) => {
 
     const remarks = item.remarks?'Remarks: '+item.remarks:''
 
-    const subTitle = () => {
-      return (
-        <View>
-          <Text style={transformDeliverTitleStyle(item.deliveryStatus)}>{transformDeliverStatus(item.deliveryStatus)}</Text>
-          {remarks?<Text>{remarks}</Text>:null}
-        </View>
-      )
-    }
-    
     return (
-      <TouchableOpacity key={'Delivery-'+item.id} onPress={() => {
+      <TouchableOpacity onPress={() => {
         props.selectDelivery(item)
         props.navigation.navigate('DeliverDetails', {})}
       } >
@@ -67,13 +46,16 @@ const DeliverScreen = (props) => {
         title={item.userInfo.displayName}
         containerStyle={{borderBottomColor: '#f9f9f9', borderBottomWidth: 1}}
         titleStyle={item.deliveryStatus}
-        subtitle={subTitle}
+        subtitle={<View>
+          <Text style={transformDeliverTitleStyle(item.deliveryStatus)}>{transformDeliverStatus(item.deliveryStatus)}</Text>
+          {item.remarks?<Text>{item.remarks}</Text>:null}
+        </View>}
         rightAvatar={reightAvatar(item)} />
       </TouchableOpacity>
     );
   }
 
-  const { deliveries } = props.deliver
+  const { deliveries, getDeliveriesOnProgress } = props.deliver
 
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
@@ -99,9 +81,12 @@ const DeliverScreen = (props) => {
               style={{flex: 1}}
               data={deliveries}
               renderItem={({item}) => <Delivery item={item} />}
-              keyExtractor={item => String(item.id)}
+              keyExtractor={item => String("delivery-item-"+item.id)}
               initialNumToRender={24}
               onEndReachedThreshold={.01}
+              onEndReached={() => props.getDeliveries()}
+              onRefresh={() => props.refreshDeliveries()}
+              refreshing={getDeliveriesOnProgress}
             />
           </SafeAreaView >
         </View>
@@ -131,7 +116,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
   return {
     getDeliveries: () => dispatch(getDeliveries()),
-    selectDelivery: (delivery) => dispatch(selectDelivery(delivery))
+    selectDelivery: (delivery) => dispatch(selectDelivery(delivery)),
+    refreshDeliveries: () => dispatch(refreshDeliveries())
   }
 }
 

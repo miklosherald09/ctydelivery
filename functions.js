@@ -196,3 +196,19 @@ export const computeCartTotal = (items) => {
 
   return total
 }
+
+export const genDeliveryDetails = (delivery) => {
+
+  data = [
+    'Cart Ref#: '+delivery.id,
+    delivery.userInfo.displayName,
+    delivery.userInfo.phoneNumber,
+    delivery.userInfo.address,
+    formatDate(delivery.datetime, 2),
+    'Items count: '+delivery.items.length,
+    'Total: '+computeCartTotal(delivery.items),
+    'Remarks: '+((delivery.remarks)?delivery.remarks:'')
+  ]
+
+  return data.join('\n')
+}

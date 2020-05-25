@@ -2,19 +2,11 @@ import React from 'react'
 import { StyleSheet, View, Alert, FlatList, SafeAreaView, TouchableOpacity, Text } from 'react-native'
 import { connect } from 'react-redux'
 import { Button, ListItem } from 'react-native-elements'
-import { computeCartTotal } from '../functions'
-import { 
-  BLANK_IMAGE_LINK,
-  DELIVERY_STATUS_PENDING,
-  DELIVERY_STATUS_RECEIVED,
-  DELIVERY_STATUS_PACKAGING,
-  DELIVERY_STATUS_DELIVERED,
-  DELIVERY_STATUS_READY } from '../constants'
+import { BLANK_IMAGE_LINK, DELIVERY_STATUS_PENDING, DELIVERY_STATUS_RECEIVED, DELIVERY_STATUS_PACKAGING, DELIVERY_STATUS_DELIVERED, DELIVERY_STATUS_READY } from '../constants'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
-import { formatDate, transformDeliverTitleStyle, transformDeliverStatus } from '../functions'
+import { transformDeliverTitleStyle, transformDeliverStatus, genDeliveryDetails } from '../functions'
 import { getDeliveries, cancelPackaging, toggleItemCheck, refreshSelectedDelivery, packaging, ready, delivered } from '../actions/deliverActions'
 import NumberFormat from 'react-number-format'
-
 
 const checkIcon = <FontAwesome5 name={'check'} color="#2089DC" size={18}/>
 const shippingIcon = <FontAwesome5 name={'shipping-fast'} color="white" size={22}/>
@@ -26,7 +18,6 @@ const checkIcon2 = <FontAwesome5 name={'check'} color="white" size={18}/>
 const thumbsupIcon = <FontAwesome5 name={'thumbs-up'} color="#333" size={20} />
 const backIcon = <FontAwesome5 name={'chevron-left'} color="#666" size={22}/>
 const infoIcon = <FontAwesome5 name={'info-circle'} color="#666" size={22}/>
-
 
 const DeliverDetailsScreen = (props) => {
 
@@ -60,23 +51,13 @@ const DeliverDetailsScreen = (props) => {
 
   const InfoButton = ({delivery}) => {
 
-    let data = [
-      'Cart Ref#: '+delivery.id,
-      delivery.userInfo.displayName,
-      delivery.userInfo.phoneNumber,
-      delivery.userInfo.address,
-      formatDate(delivery.datetime, 2),
-      'Items count: '+delivery.items.length,
-      'Total: '+computeCartTotal(delivery.items),
-    ]
-
     return (
       <TouchableOpacity 
         style={{marginHorizontal: 5}}
         onPress={() => {
         Alert.alert(
           'Deliver Details',
-          data.join('\n'),
+          genDeliveryDetails(delivery),
           [{'text': 'Ok'}],
           {cancelable: true}
         )

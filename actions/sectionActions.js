@@ -102,6 +102,7 @@ export function getSectionItems(_paramSection){
       startAfter = section.sectionLastItem[_gpc]?section.sectionLastItem[_gpc]:null
 
         if(_gpc == 1){
+
           firestore()
             .collection('items')
             .orderBy('item_order', 'asc')
@@ -109,7 +110,6 @@ export function getSectionItems(_paramSection){
             .startAfter(startAfter)
             .get()
             .then(querySnapShot => {
-              // console.log('querySnapshot.size: ', querySnapShot.size);
               items = []
               lastItem = null
               querySnapShot.forEach((doc, i) => {

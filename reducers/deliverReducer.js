@@ -1,6 +1,7 @@
 import { 
   GET_DELIVERIES_BEGIN,
   GET_DELIVERIES_SUCCESS,
+  REFRESH_GET_DELIVERIES,
   SELECT_DELIVERY,
   TOGGLE_ITEM_CHECK,
   REFRESH_SELECTED_DELIVERY,
@@ -18,6 +19,8 @@ import {
 
 const initialState = {
   deliveries: [],
+  getDeliveriesOnProgress: false,
+  lastDeliveryDoc: null,
   activeStatus: '',
   selectedDelivery: {
     id: '',
@@ -31,13 +34,24 @@ const deliverReducer = (state = initialState, action) => {
     case GET_DELIVERIES_BEGIN: {
       return {
         ...state,
+        getDeliveriesOnProgress: true
       }
     }
     
     case GET_DELIVERIES_SUCCESS: {
       return {
         ...state,
-        deliveries: action.deliveries
+        deliveries: [...state.deliveries, ...action.deliveries],
+        getDeliveriesOnProgress: false,
+        lastDeliveryDoc: action.lastDeliveryDoc
+      }
+    }
+
+    case REFRESH_GET_DELIVERIES: {
+      return {
+        ...state,
+        lastDeliveryDoc: null,
+        deliveries: []
       }
     }
 
