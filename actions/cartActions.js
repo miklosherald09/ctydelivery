@@ -38,7 +38,8 @@ import {
   ITEM_MODAL_VISIBLE,
   TOAST_MESSAGE_ITEM_ADD_TO_CART_SUCCESS,
   ALERT_MESSAGE_ORDER_IN_FREEZE_MODE_TITLE,
-  ALERT_MESSAGE_ORDER_IN_FREEZE_MODE_SUBTITLE
+  ALERT_MESSAGE_ORDER_IN_FREEZE_MODE_SUBTITLE,
+  SET_SAVE_CART_TIMEOUT
 } from '../constants'
 import { Alert, ToastAndroid } from 'react-native'
 import firestore from '@react-native-firebase/firestore'
@@ -464,6 +465,28 @@ export function removeCartItemFbase(){
       .then(() => {
         console.log('item removed')
       })
+
+  }
+}
+
+export function saveCartRemarks(text){
+  return (dispatch, getState) => {
+
+    const { cart } = getState()
+
+    clearTimeout(cart.timeout)
+
+    timeout = setTimeout(function () {
+      firestore()
+        .collection('carts')
+        .doc(cart.activeCart.id)
+        .update({ remarks: text })
+        .then(() => {
+          console.log('cart remarks saved')
+        })
+    }, 500)
+
+    dispatch({type: SET_SAVE_CART_TIMEOUT, timeout: timeout})
 
   }
 }

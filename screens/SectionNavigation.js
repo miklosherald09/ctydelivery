@@ -1,30 +1,36 @@
 import React from 'react'
-import { StyleSheet, View, FlatList } from 'react-native'
-import { connect } from 'react-redux'
-import { Button } from 'react-native-elements'
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+import { StyleSheet, View, FlatList, Text } from 'react-native'
+import { Button, Divider } from 'react-native-elements'
 import { syncItemsCsv } from '../actions/itemActions'
+import { connect } from 'react-redux'
 import { selectSection, getSectionItems } from '../actions/sectionActions'
 
-function Section({gpc, title, onPress}) {
-  return (
-    <View key={'section-'+gpc}  style={{padding: 10}}>
-      <Button
-        onPress={onPress}
-        type="clear"
-        titleStyle={{fontSize: '20', fontSize: 15, color: 'black'}}
-        title={title}
-      />
-    </View>
-  );
-}
+
 
 const SectionNavigation = (props) => {
 
-  const { sections } = props.section
+  const { activeSection, sections } = props.section
 
+  const Section = ({gpc, title, onPress}) => {
+    
+    let active = (activeSection.google_product_category == gpc)
+    
+    return (
+      <View key={'section-'+gpc}  style={{}}>
+        <Button
+          onPress={onPress}
+          type="clear"
+          titleStyle={active?styles.activeTitle:styles.title}
+          title={title}
+          buttonStyle={{paddingHorizontal: 10}}
+        />
+        <Divider style={active?styles.activeDivider:styles.divider}/>
+      </View>
+    );
+  }
+  
   return (
-    <View style={{height: 50}} >
+    <View style={{}} >
       <FlatList
         horizontal={true}
         data={sections}
@@ -45,6 +51,22 @@ const styles = StyleSheet.create({
     fontWeight: 'bold', 
     color: '#333', 
     marginVertical: 10
+  },
+  activeDivider: {
+    height: 3, 
+    backgroundColor: 'white'
+  },
+  divider: {
+    height: 3, 
+    backgroundColor: '#f1f1f1'
+  },
+  activeTitle: {
+    fontSize: 15,
+    color: '#999'
+  },
+  title: {
+    fontSize: 15, 
+    color: '#333'
   }
 });
 

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { StyleSheet, View, Alert, FlatList,  SafeAreaView, TouchableHighlight, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Alert, FlatList,  SafeAreaView, TouchableHighlight, TouchableOpacity, Text } from 'react-native'
 import { connect } from 'react-redux'
 import { Button, ListItem } from 'react-native-elements'
 import { BLANK_IMAGE_LINK  } from '../constants'
@@ -28,6 +28,7 @@ const DeliverScreen = (props) => {
       formatDate(delivery.datetime, 2),
       'Items count: '+delivery.items.length,
       'Total: '+computeCartTotal(delivery.items),
+      'Remarks: '+delivery.remarks
     ]
 
     return (
@@ -45,6 +46,17 @@ const DeliverScreen = (props) => {
 
   const Delivery = ({item}) => {
 
+    const remarks = item.remarks?'Remarks: '+item.remarks:''
+
+    const subTitle = () => {
+      return (
+        <View>
+          <Text style={transformDeliverTitleStyle(item.deliveryStatus)}>{transformDeliverStatus(item.deliveryStatus)}</Text>
+          {remarks?<Text>{remarks}</Text>:null}
+        </View>
+      )
+    }
+    
     return (
       <TouchableOpacity key={'Delivery-'+item.id} onPress={() => {
         props.selectDelivery(item)
@@ -55,8 +67,7 @@ const DeliverScreen = (props) => {
         title={item.userInfo.displayName}
         containerStyle={{borderBottomColor: '#f9f9f9', borderBottomWidth: 1}}
         titleStyle={item.deliveryStatus}
-        subtitleStyle={transformDeliverTitleStyle(item.deliveryStatus)}
-        subtitle={transformDeliverStatus(item.deliveryStatus)}
+        subtitle={subTitle}
         rightAvatar={reightAvatar(item)} />
       </TouchableOpacity>
     );

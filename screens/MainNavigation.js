@@ -40,16 +40,16 @@ const MainNavigation = (props) => {
         (userInfo && ADMIN_EMAILS.includes(userInfo.email))?
         <Button
           type='clear'
-          icon={syncIcon}
-          onPress={() => props.syncItemsCsv('sync')}
+          icon={boxOpenIcon}
+          onPress={() => props.navigation.navigate('Deliver', {})}
         />:null
       }
       {
         (userInfo && ADMIN_EMAILS.includes(userInfo.email))?
         <Button
           type='clear'
-          icon={boxOpenIcon}
-          onPress={() => props.navigation.navigate('Deliver', {})}
+          icon={syncIcon}
+          onPress={() => props.syncItemsCsv('sync')}
         />:null
       }
       {

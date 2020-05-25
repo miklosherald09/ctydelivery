@@ -18,7 +18,8 @@ import {
   CLEAR_CART,
   PUNCH_ITEM_BEGIN,
   PUNCH_ITEM_SUCCESS,
-  REMOVE_CART_ITEM
+  REMOVE_CART_ITEM,
+  SET_SAVE_CART_TIMEOUT
  } from '../constants'
 
 const initialState = {
@@ -35,7 +36,8 @@ const initialState = {
   pendingToReceivedProgress: false,
   cancelDeliverProgress: false,
   initializedActiveCart: false,
-  punchItemProgress: false
+  punchItemProgress: false,
+  timeout: 0
 }
 
 
@@ -223,6 +225,13 @@ const cartReducer = (state = initialState, action) => {
           ...state.activeCart,
           items: filtered,
         }
+      }
+    }
+
+    case SET_SAVE_CART_TIMEOUT: {
+      return {
+        ...state,
+        timeout: action.timeout
       }
     }
 

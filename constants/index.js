@@ -2,6 +2,7 @@ import { GameRequestDialog } from "react-native-fbsdk"
 
 // miscellaneous
 export const ITEM_FETCH_LIMIT = 18
+export const CURRENCY = '₱'
 
 // items
 export const ITEM_MODAL_VISIBLE = 'ITEM_MODAL_VISIBLE'
@@ -23,6 +24,8 @@ export const SELECT_SECTION = 'SELECT_SECTION'
 export const GET_SECTION_ITEMS = 'GET_SECTION_ITEMS'
 export const INIT_SECTION_ITEMS = 'INIT_SECTION_ITEMS'
 export const GET_SECTIONS_SUCCESS = 'GET_SECTIONS_SUCCESS'
+export const GET_SECTION_ITEMS_BEGIN = 'GET_SECTION_ITEMS_BEGIN'
+export const GET_SECTION_ITEMS_SUCCESS = 'GET_SECTION_ITEMS_SUCCESS'
 
 // search
 export const SEARCH_MODAL_VISIBLE = 'SEARCH_MODAL_VISIBLE'
@@ -61,7 +64,7 @@ export const CLEAR_CART = 'CLEAR_CART'
 export const PUNCH_ITEM_BEGIN = 'PUNCH_ITEM_BEGIN'
 export const PUNCH_ITEM_SUCCESS = 'PUNCH_ITEM_SUCCESS'
 export const REMOVE_CART_ITEM = 'REMOVE_CART_ITEM'
-
+export const SET_SAVE_CART_TIMEOUT = 'SET_SAVE_CART_TIMEOUT'
 
 // auth
 export const AUTH_MODAL_VISIBLE = 'AUTH_MODAL_VISIBLE'

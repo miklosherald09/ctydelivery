@@ -50,11 +50,19 @@ const deliverReducer = (state = initialState, action) => {
 
     case TOGGLE_ITEM_CHECK: {
 
-      state.selectedDelivery.items.forEach((item) => {
+      for(i = 0; i < state.selectedDelivery.items.length; i++){
+        item = state.selectedDelivery.items[i]
         if(item.id == action.itemId){
           item.checked = !item.checked
+          break
         }
-      })
+        
+      }
+      // state.selectedDelivery.items.forEach((item) => {
+      //   if(item.id == action.itemId){
+      //     item.checked = !item.checked
+      //   }
+      // })
 
       return {
         ...state

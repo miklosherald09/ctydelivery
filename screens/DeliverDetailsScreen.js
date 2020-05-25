@@ -97,13 +97,13 @@ const DeliverDetailsScreen = (props) => {
             buttonStyle={{}}
           />
           <View style={{flex: 1}}>
-          <ListItem
-            title={selectedDelivery.userInfo.displayName}
-            leftAvatar={{ rounded: true, source: { uri: selectedDelivery.userInfo.photoURL || BLANK_IMAGE_LINK } }}
-            subtitle={transformDeliverStatus(selectedDelivery.deliveryStatus)}
-            subtitleStyle={transformDeliverTitleStyle(selectedDelivery.deliveryStatus)}
-            containerStyle={{paddingVertical: 7}}
-          />
+            <ListItem
+              title={selectedDelivery.userInfo.displayName}
+              leftAvatar={{ rounded: true, source: { uri: selectedDelivery.userInfo.photoURL || BLANK_IMAGE_LINK } }}
+              subtitle={transformDeliverStatus(selectedDelivery.deliveryStatus)}
+              subtitleStyle={transformDeliverTitleStyle(selectedDelivery.deliveryStatus)}
+              containerStyle={{paddingVertical: 7}}
+            />
           </View>
           <Button
             type="clear"
@@ -112,8 +112,11 @@ const DeliverDetailsScreen = (props) => {
           />
           <InfoButton delivery={selectedDelivery} />
         </View>
+        <View>
+          <Text style={{fontSize: 15, margin: 10}}>{selectedDelivery.remarks?selectedDelivery.remarks:null}</Text>
+        </View>
         <View style={{flex: 1}}>
-          <SafeAreaView style={{flex: 1}}>
+        <SafeAreaView style={{flex: 1}}>
             <FlatList
               style={{flex: 1}}
               data={selectedDelivery.items}

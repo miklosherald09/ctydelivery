@@ -2,7 +2,6 @@ import React, { Component, useState } from "react";
 import { Alert, Modal, StyleSheet, Text, TouchableOpacity, TouchableHighlight, View, Image } from "react-native";
 import { Button, Input, SocialIcon } from 'react-native-elements'
 import { connect } from 'react-redux'
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { authModalVisible, googleSignIn, facebookSignIn } from '../actions/authActions'
 

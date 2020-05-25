@@ -1,4 +1,4 @@
-import { SELECT_SECTION, GET_SECTIONS_SUCCESS, GET_SECTION_ITEMS, INIT_SECTION_ITEMS } from '../constants'
+import { SELECT_SECTION, GET_SECTIONS_SUCCESS, GET_SECTION_ITEMS, INIT_SECTION_ITEMS, GET_SECTION_ITEMS_BEGIN, GET_SECTION_ITEMS_SUCCESS } from '../constants'
 import { formatData, findWithAttr } from '../functions'
 import firestore from '@react-native-firebase/firestore'
 
@@ -97,63 +97,70 @@ export function getSectionItems(_paramSection){
     const _gpc = _paramSection.google_product_category
     const _section = findWithAttr(section.sections, 'google_product_category', _gpc)
 
-    startAfter = section.sectionLastItem[_gpc]?section.sectionLastItem[_gpc]:null
+    if(!section.getSectionsItemsOnProgress){
+      dispatch({type: GET_SECTION_ITEMS_BEGIN})
+      startAfter = section.sectionLastItem[_gpc]?section.sectionLastItem[_gpc]:null
 
-    if(_gpc == 1){
-      firestore()
-        .collection('items')
-        .orderBy('item_order', 'asc')
-        .limit(24)
-        .startAfter(startAfter)
-        .get()
-        .then(querySnapShot => {
-          // console.log('querySnapshot.size: ', querySnapShot.size);
-          items = []
-          lastItem = null
-          querySnapShot.forEach((doc, i) => {
-            item = doc.data()
-            items.push(item)
+        if(_gpc == 1){
+          firestore()
+            .collection('items')
+            .orderBy('item_order', 'asc')
+            .limit(24)
+            .startAfter(startAfter)
+            .get()
+            .then(querySnapShot => {
+              // console.log('querySnapshot.size: ', querySnapShot.size);
+              items = []
+              lastItem = null
+              querySnapShot.forEach((doc, i) => {
+                item = doc.data()
+                items.push(item)
 
-            if(i + 1 == querySnapShot.size)
-              lastDoc = doc
-          });
+                if(i + 1 == querySnapShot.size)
+                  lastDoc = doc
+              });
 
-          dispatch({
-            type: GET_SECTION_ITEMS,
-            section: _paramSection,
-            items: items,
-            gpc: _gpc,
-            lastQuerySnapShot: lastDoc
+              dispatch({
+                type: GET_SECTION_ITEMS,
+                section: _paramSection,
+                items: items,
+                gpc: _gpc,
+                lastQuerySnapShot: lastDoc
+              })
+              
+              dispatch({type: GET_SECTION_ITEMS_SUCCESS})
           })
-      })
-    }
-    else{
-      // console.log('other sections')
-      firestore()
-      .collection('items')
-      .where('google_product_category', '==', String(_gpc))
-      .orderBy('item_order', 'asc')
-      .limit(24)
-      .startAfter(startAfter)
-      .get()
-      .then(querySnapShot => {
-        items = []
-        querySnapShot.forEach((doc, i) => {
-          item = doc.data()
-          items.push(item)
+        }
+        else{
+          // console.log('other sections')
+          firestore()
+          .collection('items')
+          .where('google_product_category', '==', String(_gpc))
+          .orderBy('item_order', 'asc')
+          .limit(24)
+          .startAfter(startAfter)
+          .get()
+          .then(querySnapShot => {
+            items = []
+            querySnapShot.forEach((doc, i) => {
+              item = doc.data()
+              items.push(item)
 
-          if(i + 1 == querySnapShot.size)
-            lastItem = doc
-        });
+              if(i + 1 == querySnapShot.size)
+                lastItem = doc
+            });
 
-        dispatch({
-          type: GET_SECTION_ITEMS,
-          section: _paramSection,
-          items: items,
-          gpc: _gpc,
-          lastQuerySnapShot: lastItem
+            dispatch({
+              type: GET_SECTION_ITEMS,
+              section: _paramSection,
+              items: items,
+              gpc: _gpc,
+              lastQuerySnapShot: lastItem
+            })
+
+            dispatch({type: GET_SECTION_ITEMS_SUCCESS})
         })
-    })
+        }
     }
   }
 }

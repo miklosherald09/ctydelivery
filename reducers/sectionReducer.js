@@ -1,12 +1,13 @@
-import { SELECT_SECTION, GET_SECTION_ITEMS, INIT_SECTION_ITEMS, GET_SECTIONS_SUCCESS } from '../constants'
-import { formatData, findWithAttr } from '../functions'
+import { SELECT_SECTION, GET_SECTION_ITEMS, INIT_SECTION_ITEMS, GET_SECTIONS_SUCCESS, GET_SECTION_ITEMS_BEGIN,  GET_SECTION_ITEMS_SUCCESS } from '../constants'
+import { formatData } from '../functions'
 
 const initialState = {
   activeSection: {google_product_category: 1},
   sectionItems: [],
   sections: [],
   sectionLastItem: [],
-  lastQuerySnapShot: null
+  lastQuerySnapShot: null,
+  getSectionsItemsOnProgress: false
 }
 
 const sectionReducer = (state = initialState, action) => {
@@ -15,7 +16,7 @@ const sectionReducer = (state = initialState, action) => {
     case SELECT_SECTION: {
       return {
         ...state,
-        activeSection: action.section
+        activeSection: action.section,
       }
     }
 
@@ -42,6 +43,20 @@ const sectionReducer = (state = initialState, action) => {
           ...state.sectionLastItem,
           [gpc]: action.lastQuerySnapShot
         }
+      }
+    }
+
+    case GET_SECTION_ITEMS_BEGIN: {
+      return {
+        ...state,
+        getSectionsItemsOnProgress: true,
+      }
+    }
+
+    case GET_SECTION_ITEMS_SUCCESS: {
+      return {
+        ...state,
+        getSectionsItemsOnProgress: false,
       }
     }
 
