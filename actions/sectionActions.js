@@ -34,60 +34,6 @@ export function selectSection(section) {
   }
 }
 
-export function initSectionItems(_section){
-
-  return (dispatch, getState) => {
-    
-    const { section } = getState()  
-
-    if(!section.sectionItems[parseInt(_section.google_product_category)]){
-      if(section.google_product_category == 1){
-         firestore()
-          .collection('items')
-          .orderBy('title', 'asc')
-          .limit(24)
-          .get()
-          .then(querySnapshot => {
-            items = []
-            querySnapshot.forEach(item => {
-              item = item.data()
-              items.push(item)
-            });
-
-            dispatch({
-              type: GET_SECTION_ITEMS,
-              section: {google_product_category: 1},
-              items: formatData(items, 4)
-            })
-          })
-      }
-      else{
-        firestore()
-        .collection('items')
-        .where('google_product_category', '==', _section.google_product_category)
-        .limit(24)
-        .get()
-        .then(querySnapshot => {
-          items = []
-          querySnapshot.forEach(item => {
-            item = item.data()
-            items.push(item)
-          });
-
-          dispatch({
-            type: INIT_SECTION_ITEMS,
-            section: _section,
-            items: formatData(items, 4)
-          })
-        })
-      }
-    }
-    else{
-      // console.log('dfidjfl')
-    }
-  }
-}
-
 export function getSectionItems(_paramSection){
 
   return (dispatch, getState) => {
@@ -98,7 +44,9 @@ export function getSectionItems(_paramSection){
     const _section = findWithAttr(section.sections, 'google_product_category', _gpc)
 
     if(!section.getSectionsItemsOnProgress){
+
       dispatch({type: GET_SECTION_ITEMS_BEGIN})
+      
       startAfter = section.sectionLastItem[_gpc]?section.sectionLastItem[_gpc]:null
 
         if(_gpc == 1){

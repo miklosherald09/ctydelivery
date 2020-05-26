@@ -15,8 +15,7 @@ import { initSearchItems } from './actions/searchActions'
 import { initAlgolia } from './actions/algoliaActions'
 import { GoogleSignin } from '@react-native-community/google-signin'
 import { getSections, selectSection } from './actions/sectionActions'
-import { initializeAuth, authListenerInit } from './actions/authActions'
-// import { getDeliveries } from './actions/deliverActions'
+import { authListenerInit } from './actions/authActions'
 import { TransitionPresets } from '@react-navigation/stack'
 import { navigationRef } from './RootNavigation'
 import codePush from "react-native-code-push"
@@ -46,6 +45,7 @@ class App extends Component {
     store.dispatch(authListenerInit())
     store.dispatch(initAlgolia())
     store.dispatch(initSearchItems())
+    // store.dispatch(getLatestDelivery())
     // store.dispatch(initUserInfoFirebase())
     // store.dispatch(getDeliveries())
     // store.dispatch(initializeAuth())

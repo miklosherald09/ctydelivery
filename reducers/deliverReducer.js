@@ -14,13 +14,13 @@ import {
   PACKAGING_TO_READY_BEGIN,
   PACKAGING_TO_READY_SUCCESS,
   READY_TO_DELIVERED_BEGIN,
-  READY_TO_DELIVERED_SUCCESS
+  READY_TO_DELIVERED_SUCCESS,
  } from '../constants'
 
 const initialState = {
   deliveries: [],
   getDeliveriesOnProgress: false,
-  lastDeliveryDoc: null,
+  docSize: 0,
   activeStatus: '',
   selectedDelivery: {
     id: '',
@@ -41,17 +41,17 @@ const deliverReducer = (state = initialState, action) => {
     case GET_DELIVERIES_SUCCESS: {
       return {
         ...state,
-        deliveries: [...state.deliveries, ...action.deliveries],
+        deliveries: action.deliveries,
         getDeliveriesOnProgress: false,
-        lastDeliveryDoc: action.lastDeliveryDoc
+        docSize: action.docSize
       }
     }
 
     case REFRESH_GET_DELIVERIES: {
       return {
         ...state,
-        lastDeliveryDoc: null,
-        deliveries: []
+        deliveries: [],
+        docSize: 0
       }
     }
 

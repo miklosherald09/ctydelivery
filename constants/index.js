@@ -2,6 +2,7 @@
 export const ITEM_FETCH_LIMIT = 18
 export const CURRENCY = '₱'
 export const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSRag1ttKQ1OOeKKI3BeQzdvA9TfEsDImpgMm7dcp17j97qkMcVTbKEtrt31fAhsL7_CxCfGPjXNPqS/pub?gid=0&single=true&output=csv"
+export const DELIVERY_LIST_OFFSET = 20
 
 // items
 export const ITEM_MODAL_VISIBLE = 'ITEM_MODAL_VISIBLE'
@@ -135,7 +136,6 @@ export const PACKAGING_TO_READY_SUCCESS = 'PACKAGING_TO_READY_SUCCESS'
 export const READY_TO_DELIVERED_BEGIN = 'READY_TO_DELIVERED_BEGIN'
 export const READY_TO_DELIVERED_SUCCESS = 'READY_TO_DELIVERED_SUCCESS'
 export const REFRESH_GET_DELIVERIES = 'REFRESH_GET_DELIVERIES'
-
 
 
 // notifications

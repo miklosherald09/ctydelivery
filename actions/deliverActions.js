@@ -28,10 +28,12 @@ import {
   TOAST_MESSAGE_PACKAGING_TO_RECEIVED_SUCCESS,
   TOAST_MESSAGE_READY_TO_DELIVERED_SUCCESS,
   TOAST_MESSAGE_PACKAGING_TO_READY_SUCCESS,
-  REFRESH_GET_DELIVERIES
+  REFRESH_GET_DELIVERIES,
+  DELIVERY_LIST_OFFSET
 } from '../constants'
 import { Alert, ToastAndroid } from 'react-native'
 import firestore from '@react-native-firebase/firestore'
+
 
 export function getDeliveries(){
 
@@ -42,46 +44,31 @@ export function getDeliveries(){
     if(!deliver.getDeliveriesOnProgress){
 
       dispatch({type: GET_DELIVERIES_BEGIN})
-      firestoreQuery = null
-      if(!deliver.lastDeliveryDoc){
-        firestoreQuery = firestore()
-          .collection('carts')
-          .orderBy('datetime', 'desc')
-          .limit(15)
-      }
-      else{
-        firestoreQuery = firestore()
-          .collection('carts')
-          .orderBy('datetime', 'desc')
-          .startAfter(deliver.lastDeliveryDoc)
-          .limit(15)
-      }
-        console.log('deliver.lastDeliveryDoc: ')
-       
-        firestoreQuery.onSnapshot(querySnapshot => {
-        deliveries = []
-        lastDeliveryDoc = null
-        console.log(querySnapshot.size)
+      // console.log(querySnapshot.size)
+      
+      const firestoreQuery = firestore()
+        .collection('carts')
+        .orderBy('datetime', 'desc')
+        .limit(deliver.docSize + DELIVERY_LIST_OFFSET)
+        .onSnapshot(querySnapshot => {
 
-        if(querySnapshot.size > 0){
-          querySnapshot.forEach((doc, i) => {
-            snapDeliver = doc.data()
-            snapDeliver.id = doc.id
-            deliveries.push(snapDeliver)
-            
-            if(i == querySnapshot.size - 1){
-              lastDeliveryDoc = doc
-            }
-          })
+          deliveries = []
+          lastDeliveryDoc = null
 
-          dispatch({
-            type: GET_DELIVERIES_SUCCESS,
-            deliveries: deliveries,
-            lastDeliveryDoc: lastDeliveryDoc
-          })
-        }
-        })
-    
+          if(querySnapshot.size > 0){
+            querySnapshot.forEach((doc, i) => {
+              snapDeliver = doc.data()
+              snapDeliver.id = doc.id
+              deliveries.push(snapDeliver)
+            })
+            dispatch({
+              type: GET_DELIVERIES_SUCCESS,
+              deliveries: deliveries,
+              docSize: querySnapshot.size
+            })
+          }
+      })
+      return () => firestoreQuery();
     }
   }
 }
