@@ -19,6 +19,7 @@ import { authListenerInit } from './actions/authActions'
 import { TransitionPresets } from '@react-navigation/stack'
 import { navigationRef } from './RootNavigation'
 import codePush from "react-native-code-push"
+import { getLastDeliveredCart } from './actions/cartActions'
 
 import configureStore from './store/configureStore'
 
@@ -45,6 +46,7 @@ class App extends Component {
     store.dispatch(authListenerInit())
     store.dispatch(initAlgolia())
     store.dispatch(initSearchItems())
+    // store.dispatch(getLastDeliveredCart())
     // store.dispatch(getLatestDelivery())
     // store.dispatch(initUserInfoFirebase())
     // store.dispatch(getDeliveries())

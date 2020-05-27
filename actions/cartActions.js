@@ -39,7 +39,11 @@ import {
   TOAST_MESSAGE_ITEM_ADD_TO_CART_SUCCESS,
   ALERT_MESSAGE_ORDER_IN_FREEZE_MODE_TITLE,
   ALERT_MESSAGE_ORDER_IN_FREEZE_MODE_SUBTITLE,
-  SET_SAVE_CART_TIMEOUT
+  SET_SAVE_CART_TIMEOUT,
+  COPY_PREVIOUS_CART_SUCCESS,
+  GET_LAST_DELIVERED_CART_SUCCESS,
+  ALERT_MESSAGE_COPY_PREV_CART_TITLE,
+  ALERT_MESSAGE_COPY_PREV_CART_SUBTITLE,
 } from '../constants'
 import { Alert, ToastAndroid } from 'react-native'
 import firestore from '@react-native-firebase/firestore'
@@ -443,8 +447,6 @@ export function cancelDeliver(){
 }
 
 export function removeCartItem(item){
-  console.log('removeing item')
-  console.log(item)
   return { 
     type: REMOVE_CART_ITEM,
     item: item
@@ -488,5 +490,60 @@ export function saveCartRemarks(text){
 
     dispatch({type: SET_SAVE_CART_TIMEOUT, timeout: timeout})
 
+  }
+}
+
+export function copyPreviousCart(){
+  
+  return (dispatch, getState) => {
+
+    const { cart } = getState()
+
+    Alert.alert(
+      ALERT_MESSAGE_COPY_PREV_CART_TITLE,
+      ALERT_MESSAGE_COPY_PREV_CART_SUBTITLE,
+      [{ text: "Okay", onPress: () => { copyPreviousCartAction() }},
+       { text: "Cancel", onPress: console.log}],
+      { cancelable: true }
+    )
+
+   const copyPreviousCartAction = () => {
+
+    firestore()
+      .collection('carts')
+      .doc(cart.activeCart.id)
+      .update({
+        items: cart.lastDeliveredCart.items
+      })
+      .then(() => {
+        console.log('last delivered items done!')
+        dispatch({type: COPY_PREVIOUS_CART_SUCCESS, items: cart.lastDeliveredCart.items})
+      })
+    }
+  }
+}
+
+export function getLastDeliveredCart(){
+
+  return (dispatch, getState) => {
+
+    const { user, cart } = getState()
+
+    firestore()
+      .collection('carts')
+      .where('uid', '==', user.userInfo.uid)
+      .where('deliveryStatus', "==", DELIVERY_STATUS_DELIVERED)
+      .orderBy('datetime', 'desc')
+      .limit(1)
+      .onSnapshot(querySnapShot => {
+        if(querySnapShot.size == 1){
+          querySnapShot.forEach((doc) => {
+            dispatch({
+              type: GET_LAST_DELIVERED_CART_SUCCESS, 
+              lastDeliveredCart: doc.data()
+            })  
+          })
+        }
+      })
   }
 }

@@ -65,11 +65,18 @@ export const PUNCH_ITEM_BEGIN = 'PUNCH_ITEM_BEGIN'
 export const PUNCH_ITEM_SUCCESS = 'PUNCH_ITEM_SUCCESS'
 export const REMOVE_CART_ITEM = 'REMOVE_CART_ITEM'
 export const SET_SAVE_CART_TIMEOUT = 'SET_SAVE_CART_TIMEOUT'
+export const COPY_PREVIOUS_CART_SUCCESS = 'COPY_PREVIOUS_CART_SUCCESS'
+export const GET_LAST_DELIVERED_CART_SUCCESS = 'GET_LAST_DELIVERED_CART_SUCCESS'
 
 // auth
 export const AUTH_MODAL_VISIBLE = 'AUTH_MODAL_VISIBLE'
 export const AUTH_SUCCESS = 'AUTH_SUCCESS'
 export const SET_CONFIRMATION = 'SET_CONFIRMATION'
+export const ROOT_EMAILS = [
+  'miklos_herald@yahoo.com',
+  'miklos.herald@gmail.com',
+  'ctystore2020@gmail.com',
+]
 export const ADMIN_EMAILS = [
   'miklos_herald@yahoo.com',
   'miklos.herald@gmail.com',
@@ -107,6 +114,10 @@ export const ALERT_MESSAGE_ITEM_OUT_OF_STOCK_TITLE = "Item is out of stock"
 export const ALERT_MESSAGE_ITEM_OUT_OF_STOCK_SUBTITLE = "Item is temporarily not available, we're trying to make it available"
 export const ALERT_MESSAGE_ORDER_IN_FREEZE_MODE_TITLE = "Cannot add more items"
 export const ALERT_MESSAGE_ORDER_IN_FREEZE_MODE_SUBTITLE = "Your order will be delivered soon, so your cart is now in freeze mode"
+export const ALERT_MESSAGE_COPY_PREV_CART_TITLE = "Use previous cart"
+export const ALERT_MESSAGE_COPY_PREV_CART_SUBTITLE = "All items from the previous delivered cart will be copied"
+export const ALERT_MESSAGE_DELETE_CART_TITLE = "Delete Cart"
+export const ALERT_MESSAGE_DELETE_CART_SUBTITLE = "This will permanently delete cart, so please make sure you are 100% know what you are doing"
 
 
 // toast messages
@@ -136,7 +147,7 @@ export const PACKAGING_TO_READY_SUCCESS = 'PACKAGING_TO_READY_SUCCESS'
 export const READY_TO_DELIVERED_BEGIN = 'READY_TO_DELIVERED_BEGIN'
 export const READY_TO_DELIVERED_SUCCESS = 'READY_TO_DELIVERED_SUCCESS'
 export const REFRESH_GET_DELIVERIES = 'REFRESH_GET_DELIVERIES'
-
+export const DELETE_DELIVERY_SUCCESS = 'DELETE_DELIVERY_SUCCESS'
 
 // notifications
 export const DELIVERY_RECEIVED_NOTIF_MESSAGE = "Your order is received. You can still add items to your cart until we start packaging your order"

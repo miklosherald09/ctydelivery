@@ -19,7 +19,9 @@ import {
   PUNCH_ITEM_BEGIN,
   PUNCH_ITEM_SUCCESS,
   REMOVE_CART_ITEM,
-  SET_SAVE_CART_TIMEOUT
+  SET_SAVE_CART_TIMEOUT,
+  COPY_PREVIOUS_CART_SUCCESS,
+  GET_LAST_DELIVERED_CART_SUCCESS
  } from '../constants'
 
 const initialState = {
@@ -37,7 +39,8 @@ const initialState = {
   cancelDeliverProgress: false,
   initializedActiveCart: false,
   punchItemProgress: false,
-  timeout: 0
+  timeout: 0,
+  lastDeliveredCart: null
 }
 
 
@@ -232,6 +235,23 @@ const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         timeout: action.timeout
+      }
+    }
+
+    case COPY_PREVIOUS_CART_SUCCESS: {
+      return {
+        ...state,
+        activeCart: {
+          ...state.activeCart,
+          items: action.items
+        }
+      }
+    }
+    
+    case GET_LAST_DELIVERED_CART_SUCCESS: {
+      return {
+        ...state,
+        lastDeliveredCart: action.lastDeliveredCart
       }
     }
 

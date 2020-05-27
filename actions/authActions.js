@@ -6,6 +6,7 @@ import { LoginManager, AccessToken } from 'react-native-fbsdk'
 import * as RootNavigation from '../RootNavigation.js'
 import { getActiveCart, clearCart } from './cartActions'
 import { initUserInfoFirebase } from './userActions'
+import { getLastDeliveredCart } from './cartActions'
 
 
 export function authListenerInit(){
@@ -20,7 +21,7 @@ export function authListenerInit(){
           dispatch({type: AUTH_MODAL_VISIBLE, visible: false })
         
           dispatch(getActiveCart())
-          // dispatch(getDeliveries())
+          dispatch(getLastDeliveredCart())
           dispatch(initUserInfoFirebase())
       }
       else{

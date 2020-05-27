@@ -29,10 +29,14 @@ import {
   TOAST_MESSAGE_READY_TO_DELIVERED_SUCCESS,
   TOAST_MESSAGE_PACKAGING_TO_READY_SUCCESS,
   REFRESH_GET_DELIVERIES,
-  DELIVERY_LIST_OFFSET
+  DELIVERY_LIST_OFFSET,
+  ALERT_MESSAGE_DELETE_CART_TITLE,
+  ALERT_MESSAGE_DELETE_CART_SUBTITLE,
+  DELETE_DELIVERY_SUCCESS
 } from '../constants'
 import { Alert, ToastAndroid } from 'react-native'
 import firestore from '@react-native-firebase/firestore'
+import * as RootNavigation from '../RootNavigation.js'
 
 
 export function getDeliveries(){
@@ -81,18 +85,9 @@ export function refreshDeliveries(){
 }
 
 export function selectDelivery(deliveryParams){
-  return (dispatch, getState) => {
-
-    dispatch({type: SELECT_DELIVERY, delivery: deliveryParams})
-
-    firestore()
-      .collection('carts')
-      .doc(deliveryParams.id)
-      .onSnapshot(doc => {
-        deliveryParams = doc.data()
-        deliveryParams.id = doc.id
-        dispatch({type: SELECT_DELIVERY, delivery: deliveryParams})
-      })
+  return {
+    type: SELECT_DELIVERY, 
+    delivery: deliveryParams
   }
 }
 
@@ -130,8 +125,8 @@ export function refreshSelectedDelivery(){
     .collection('carts')
     .doc(deliver.selectedDelivery.id)
     .get()
-    .then((doc) => {
-      let delivery =  doc.data()
+    .then(querySnapshot => {
+      let doc =  querySnapshot.data()
       delivery.id = doc.id
       dispatch({type: REFRESH_SELECTED_DELIVERY, delivery: delivery })
       ToastAndroid.showWithGravity( 
@@ -288,4 +283,35 @@ export function delivered(){
       { cancelable: false }
     )
   }
+}
+
+export function deleteDelivery(){
+
+  return (dispatch, getState) => {
+
+    const { deliver } = getState()
+
+    const deleteDeliveryAction = () => {
+      firestore()
+        .collection('carts')
+        .doc(deliver.selectedDelivery.id)
+        .delete()
+        .then(() => {
+          dispatch({type: DELETE_DELIVERY_SUCCESS, deliverId: deliver.selectedDelivery.id})
+          RootNavigation.navigate('Deliver', {});
+          console.log('Cart deleted')
+        })
+    }
+
+    Alert.alert(
+      ALERT_MESSAGE_DELETE_CART_TITLE,
+      ALERT_MESSAGE_DELETE_CART_SUBTITLE,
+      [
+        { text: "Cancel", onPress: () => console.log},
+        { text: "Yes, Delete Cart", onPress: () => deleteDeliveryAction()}
+      ],
+      { cancelable: true }
+    )
+  }
+
 }

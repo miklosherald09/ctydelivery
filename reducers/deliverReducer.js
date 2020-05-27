@@ -15,6 +15,7 @@ import {
   PACKAGING_TO_READY_SUCCESS,
   READY_TO_DELIVERED_BEGIN,
   READY_TO_DELIVERED_SUCCESS,
+  DELETE_DELIVERY_SUCCESS
  } from '../constants'
 
 const initialState = {
@@ -155,6 +156,22 @@ const deliverReducer = (state = initialState, action) => {
       
       return {
         ...state,
+      }
+    }
+
+    case DELETE_DELIVERY_SUCCESS: {
+
+      deliveries = state.deliveries.filter((d) => {
+        d.id != action.deliverId
+      })
+
+      return {
+        ...state,
+        selectedDelivery: {
+          id: '',
+          items: [],
+          userInfo: {}
+        },
       }
     }
 

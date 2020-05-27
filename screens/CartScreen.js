@@ -12,7 +12,7 @@ import { selectItem } from '../actions/itemActions'
 import { authModalVisible } from '../actions/authActions'
 import { Button, ListItem, Input } from 'react-native-elements'
 import AuthModal from '../modals/AuthModal'
-import { saveCartItems, clearCartItems, deliver, cancelDeliver, addressDialogVisible, saveCartRemarks } from '../actions/cartActions'
+import { saveCartItems, clearCartItems, deliver, cancelDeliver, addressDialogVisible, saveCartRemarks, copyPreviousCart } from '../actions/cartActions'
 import { updateAddressInput, saveAddress } from '../actions/userActions'
 import { setConfirmation } from '../actions/authActions'
 import Notification from './Notification'
@@ -24,6 +24,8 @@ const loading = <ActivityIndicator size={20} color="white" />
 const boxOpenIcon = <FontAwesome5 name={'box-open'} color="white" size={20}/>
 const commentIcon = <FontAwesome5 name={'comment-dots'} color="#666" size={22}/>
 const removeShoppingCart = <MaterialIcons name={'remove-shopping-cart'} color="#666" size={24}/>
+const addShoppingIcon = <MaterialIcons name={'add-shopping-cart'} color="#666" size={24}/>
+
 
 function Item({title, price, count, onPress, id}) {
   return (
@@ -82,8 +84,17 @@ const CartScreen = (props) => {
               />
             </View>:null
           }
-            {(activeCart.items.length > 0 && activeCart.deliveryStatus == DELIVERY_STATUS_PENDING)?
-            <Button 
+          {(activeCart.items.length == 0 && [DELIVERY_STATUS_PENDING, DELIVERY_STATUS_RECEIVED].includes(activeCart.deliveryStatus))?
+            <Button
+              type="clear"
+              icon={addShoppingIcon}
+              titleStyle={{color: 'red', fontSize: 15}}
+              onPress={() => props.copyPreviousCart()}
+              containerStyle={{marginLeft: 20}}
+            />:null
+          }
+          {(activeCart.items.length > 0 && activeCart.deliveryStatus == DELIVERY_STATUS_PENDING)?
+            <Button
               type="clear"
               icon={removeShoppingCart}
               titleStyle={{color: '#666', fontSize: 15}}
@@ -201,7 +212,8 @@ const mapDispatchToProps = dispatch => {
     setConfirmation: (v) => dispatch(setConfirmation(v)),
     deliver: () => dispatch(deliver()),
     cancelDeliver: () => dispatch(cancelDeliver()),
-    saveCartRemarks: (text) => dispatch(saveCartRemarks(text))
+    saveCartRemarks: (text) => dispatch(saveCartRemarks(text)),
+    copyPreviousCart: () => dispatch(copyPreviousCart())
   }
 }
 

@@ -60,19 +60,12 @@ const DeliverScreen = (props) => {
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       <View style={{flex: 1}}>
-        <View style={{flexDirection: 'row', justifyContent: 'space-between', borderBottomColor: '#EEE', borderBottomWidth: 1}}>
+        <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderBottomColor: '#EEE', borderBottomWidth: 1}}>
           <Button
             type="clear"
             icon={backIcon}
             onPress={() => props.navigation.goBack()}
-            buttonStyle={{marginLeft: 5, marginTop: 10}}
-          />
-          <Button
-            type="clear"
-            icon={syncAltIcon}
-            titleStyle={{marginLeft: 5, fontSize: 15}}
-            onPress={() => props.getDeliveries()}
-            containerStyle={{margin: 5}}
+            buttonStyle={{paddingHorizontal: 15, paddingVertical: 10}}
           />
         </View>
         <View style={{flex: 1}}>
